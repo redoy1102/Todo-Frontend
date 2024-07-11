@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -16,18 +17,21 @@ export default function Home() {
             priority
           />
         </div>
-        <h1 className="text-4xl font-semibold w-5/12 mx-auto">
-          Babul loves learning new technolgies.
-        </h1>
+        <h1 className="w-5/12 mx-auto font-medium">Welcome to the homepage.</h1>
         <p className="text-md text-gray-400 w-5/12 mx-auto font-light">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod,
-          inventore repellat? Dolores tempora quo excepturi nulla saepe quia,
-          nostrum obcaecati eos officia iure, aliquam, repellat nemo placeat aut
-          assumenda ex. <br />
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla enim
-          fugit ut iste, ipsam deserunt, repudiandae quasi temporibus ab labore
-          blanditiis sit.
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum nihil
+          nemo natus? Vel a odit nam similique et error velit fugiat tempora?
+          Aperiam maxime quo expedita inventore iure deserunt vitae placeat quas
+          nam veniam adipisci delectus, unde voluptatem facere ab. Cumque
+          cupiditate aliquid tempora dicta sint praesentium, eligendi ducimus
+          laborum alias?
         </p>
+        <Link href="/login">
+          <button className="btn">Login</button>
+        </Link>
+        <Link href="/dashboard">
+          <button className="btn">Dashboard</button>
+        </Link>
       </div>
     </main>
   );

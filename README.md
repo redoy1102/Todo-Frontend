@@ -3,9 +3,11 @@
 ## Features:
 
 - Organized folder structure
-- Tailwind css custom setup
 - eslint and prettier setup
 - NextAuth setup
+- google font setup
+- custom tailwind css setup
+- nextjs config custom setup for better performance
 
 ## technologies:
 
