@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -26,12 +25,6 @@ export default function Home() {
           cupiditate aliquid tempora dicta sint praesentium, eligendi ducimus
           laborum alias?
         </p>
-        <Link href="/login">
-          <button className="btn">Login</button>
-        </Link>
-        <Link href="/dashboard">
-          <button className="btn">Dashboard</button>
-        </Link>
       </div>
     </main>
   );
