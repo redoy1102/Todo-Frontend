@@ -72,22 +72,22 @@
     @apply bg-background text-foreground;
   }
   h1 {
-    @apply text-4xl;
+    @apply text-5xl;
   }
   h2 {
-    @apply text-3xl;
+    @apply text-4xl;
   }
   h3 {
-    @apply text-2xl;
+    @apply text-3xl;
   }
   h4 {
-    @apply text-xl;
+    @apply text-2xl;
   }
   h5 {
-    @apply text-lg;
+    @apply text-xl;
   }
   h6 {
-    @apply text-base;
+    @apply text-lg;
   }
   p {
     @apply text-base;
@@ -108,8 +108,23 @@ body {
 }
 
 @layer components {
-  .cbtn {
-    @apply px-4 py-3 rounded-md text-white bg-purple-400 hover:bg-purple-500 transition-all duration-300 ease-in-out capitalize cursor-pointer;
+  .btn-primary {
+    @apply px-3 py-2 rounded-md text-white bg-orange-400 hover:bg-orange-500 transition-all duration-300 ease-in-out capitalize cursor-pointer;
+  }
+  .btn-secondary {
+    @apply px-3 py-2 rounded-md text-white bg-purple-400 hover:bg-purple-500 transition-all duration-300 ease-in-out capitalize cursor-pointer;
+  }
+}
+
+@layer utilities {
+  .text-primary {
+    @apply text-orange-400;
+  }
+  .text-secondary {
+    @apply text-purple-400;
+  }
+  .text-dim {
+    @apply text-gray-400 font-light;
   }
 }
 

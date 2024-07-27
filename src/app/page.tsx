@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <main className="main-container">
       <div className="h-screen flex flex-col gap-y-4 justify-center items-center ">
-        <div className="w-5/12 mx-auto">
+        <div className="w-full md:w-10/12 lg:w-8/12 mx-auto">
           <Image
             src={
               'https://res.cloudinary.com/dzqkcbgew/image/upload/fl_preserve_transparency/v1718439622/bmd4d4fxbyeqinw8yz3s.jpg?_s=public-apps'
@@ -16,8 +16,10 @@ export default function Home() {
             priority
           />
         </div>
-        <h1 className="w-5/12 mx-auto font-medium">Welcome to the homepage.</h1>
-        <p className="text-md text-gray-400 w-5/12 mx-auto font-light">
+        <h1 className="w-full md:w-10/12 lg:w-8/12 mx-auto font-medium text-primary capitalize">
+          Welcome to the homepage.
+        </h1>
+        <p className="text-md w-full md:w-10/12 lg:w-8/12 mx-auto text-dim">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum nihil
           nemo natus? Vel a odit nam similique et error velit fugiat tempora?
           Aperiam maxime quo expedita inventore iure deserunt vitae placeat quas
