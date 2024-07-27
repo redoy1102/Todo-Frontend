@@ -1,34 +1,20 @@
 'use client';
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import ThemeToggle from '@/components/theme/Themetoggle';
+import Providers from '@/lib/Providers';
 import { Toaster } from 'sonner';
 
-const RootLayoutClient = ({ roboto, children }: any) => {
+const RootLayoutClient = ({ children }: any) => {
   return (
-    <html lang="en">
-      <body className={roboto.className}>
-        <div className="absolute bottom-0 left-0 z-50">
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Theme" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
-            </SelectContent>
-          </Select>
+    <>
+      <Toaster />
+      <Providers>
+        <div className="absolute top-1 right-1 z-50">
+          <ThemeToggle />
         </div>
-        <Toaster />
         <main>{children}</main>
-      </body>
-    </html>
+      </Providers>
+    </>
   );
 };
 

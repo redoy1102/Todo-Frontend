@@ -23,5 +23,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <RootLayoutClient roboto={roboto} children={children} />;
+  return (
+    <html lang="en">
+      <body className={roboto.className}>
+        <RootLayoutClient children={children} />
+      </body>
+    </html>
+  );
 }
