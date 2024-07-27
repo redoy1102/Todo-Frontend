@@ -13,7 +13,10 @@ export default function ThemeToggle({}) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button size="icon" className="outline-none focus:outline-none">
+        <Button
+          size="icon"
+          className="outline-none focus:outline-none bg-white text-black shadow-none dark:bg-black dark:text-white hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white"
+        >
           <IoMoonOutline className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <IoSunnyOutline className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
