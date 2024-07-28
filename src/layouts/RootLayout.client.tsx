@@ -1,13 +1,11 @@
 'use client';
 
 import ThemeToggle from '@/components/theme/Themetoggle';
-import Providers from '@/lib/Providers';
-import { Toaster } from 'sonner';
+import Providers from '@/providers/Providers';
 
-const RootLayoutClient = ({ children }: any) => {
+const RootLayoutClient = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <Toaster />
       <Providers>
         <div className="absolute top-1 right-1 z-50">
           <ThemeToggle />
