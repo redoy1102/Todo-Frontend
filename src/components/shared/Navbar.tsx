@@ -13,7 +13,7 @@ import { HiOutlineMenu } from 'react-icons/hi';
 const menuItems = [
   { name: 'About', path: '/about', current: false },
   { name: 'Contact', path: '/contact', current: false },
-  { name: 'SignIn', path: '/signin', current: false },
+  { name: 'LogIn', path: '/login', current: false },
   { name: 'Dashboard', path: '/dashboard', current: false },
 ];
 

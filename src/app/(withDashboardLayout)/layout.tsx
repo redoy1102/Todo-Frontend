@@ -13,7 +13,6 @@ export default function DashboardLayout({
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathname = usePathname();
-  console.log(pathname);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -145,7 +144,7 @@ export default function DashboardLayout({
               </li>
               <li>
                 <Link
-                  href="/signin"
+                  href="/login"
                   className="cursor-pointer ms-5 text-offgray hover:text-orange-400 hover:transition-all duration-300 ease-in-out"
                   onClick={() =>
                     toast.success('Logged out successfully', {
