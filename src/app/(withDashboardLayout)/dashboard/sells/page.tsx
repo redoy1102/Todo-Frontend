@@ -1,7 +1,7 @@
-const Dashboard = () => {
+const Sells = () => {
   return (
     <div>
-      <h3 className="text-center dark:text-dim">Welcome to your dashboard</h3>
+      <h3 className="text-center dark:text-dim">Welcome to sells hstory</h3>
       <p className="text-center mt-1">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, eum.
         Error praesentium, voluptates molestiae aspernatur dolorum eum non,
@@ -12,4 +12,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Sells;

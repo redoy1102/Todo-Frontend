@@ -130,7 +130,7 @@ body {
     @apply text-purple-400;
   }
   .text-dim {
-    @apply text-gray-400 font-light;
+    @apply text-gray-400;
   }
 }
 
