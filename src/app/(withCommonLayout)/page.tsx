@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -29,23 +28,6 @@ export default function Home() {
             ab. Cumque cupiditate aliquid tempora dicta sint praesentium,
             eligendi ducimus laborum alias?
           </p>
-        </div>
-        <div className="mt-4 flex items-center gap-x-4 w-full md:w-10/12 lg:w-8/12 mx-auto">
-          <Link href="/about">
-            <button className="btn-secondary">About RND</button>
-          </Link>
-          <Link href="/contact">
-            <button className="btn-secondary">Contact Us</button>
-          </Link>
-          <Link href="/signin">
-            <button className="btn-secondary">Sign In</button>
-          </Link>
-          <Link href="/register">
-            <button className="btn-secondary">Register</button>
-          </Link>
-          <Link href="/dashboard">
-            <button className="btn-secondary">Dashboard</button>
-          </Link>
         </div>
       </div>
     </main>

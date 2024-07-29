@@ -1,3 +1,5 @@
+import Navbar from '@/components/shared/Navbar';
+
 export default function CommonLayout({
   children,
 }: {
@@ -5,7 +7,7 @@ export default function CommonLayout({
 }) {
   return (
     <div>
-      <h3 className="text-primary text-center pt-2 underline">Navbar</h3>
+      <Navbar />
       <div className="h-screen flex justify-center items-center flex-col">
         {children}
       </div>
