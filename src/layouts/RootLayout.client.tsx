@@ -7,7 +7,7 @@ const RootLayoutClient = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Providers>
-        <div className="absolute top-1 right-1 z-50">
+        <div className="absolute bottom-0 left-1 z-50">
           <ThemeToggle />
         </div>
         <main>{children}</main>
