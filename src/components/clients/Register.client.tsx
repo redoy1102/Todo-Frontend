@@ -1,5 +1,7 @@
 'use client';
 
+import { RegisterFormSchema } from '@/types/RegisterForm.types';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -15,7 +17,9 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(RegisterFormSchema),
+  });
 
   const resetForm = () => {
     const nameInput = document.getElementById('name') as HTMLInputElement;
@@ -106,7 +110,11 @@ const Register = () => {
 
   return (
     <div className="main-container flex justify-center items-center min-h-screen">
-      <div className="shadow-lg pb-8 w-full md:w-10/12 lg:w-6/12 rounded-md">
+      <div
+        className="shadow-lg pb-8 w-full md:w-10/12 lg:w-6/12 rounded-md"
+        // data-aos="zoom-in"
+        // data-aos-duration="1500"
+      >
         <div className="shadow py-3 flex justify-between items-center">
           <h3 className="text-custom-black text-xl font-bold ml-8">
             Create New Account
@@ -143,7 +151,7 @@ const Register = () => {
               />
               {errors.name && (
                 <span className="text-red-500 text-xs mt-1">
-                  Name is required
+                  {errors.name.message?.toString()}
                 </span>
               )}
             </div>
@@ -163,7 +171,7 @@ const Register = () => {
               />
               {errors.email && (
                 <span className="text-red-500 text-xs mt-1">
-                  Email is required
+                  {errors.email.message?.toString()}
                 </span>
               )}
             </div>
@@ -183,7 +191,7 @@ const Register = () => {
               />
               {errors.password && (
                 <span className="text-red-500 text-xs mt-1">
-                  Password is required
+                  {errors.password.message?.toString()}
                 </span>
               )}
               <span
@@ -209,7 +217,7 @@ const Register = () => {
               />
               {errors.cpassword && (
                 <span className="text-red-500 text-xs mt-1">
-                  Confirm Password is required
+                  {errors.cpassword.message?.toString()}
                 </span>
               )}
               <span
