@@ -20,9 +20,9 @@ const HomepageClient = () => {
       </div>
       <motion.h1
         className="w-full md:w-10/12 lg:w-8/12 mx-auto font-medium text-primary capitalize"
-        initial={{ skewY: 30, y: -10 }}
+        initial={{ skewY: 10, y: -10 }}
         animate={{ skewY: 0, y: 0 }}
-        transition={{ duration: 2 }}
+        transition={{ type: 'spring', duration: 2 }}
       >
         Welcome to the Nextjs RND.
       </motion.h1>
