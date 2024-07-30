@@ -1,6 +1,6 @@
 'use client';
 
-import { RegisterFormSchema } from '@/types/RegisterForm.types';
+import { RegisterFormSchema } from '@/types/Forms.types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -230,7 +230,7 @@ const Register = () => {
             </button>
           </form>
 
-          {/* not registered */}
+          {/* already registered */}
           <div className="flex items-center justify-between mt-12">
             <p className="text-sm text-offgray">Already Registered?</p>
             <Link href="/login">
