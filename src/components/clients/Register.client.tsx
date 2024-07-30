@@ -11,7 +11,27 @@ import { toast } from 'sonner';
 const Register = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const [isCPasswordVisible, setIsCPasswordVisible] = useState<boolean>(false);
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const resetForm = () => {
+    const nameInput = document.getElementById('name') as HTMLInputElement;
+    const emailInput = document.getElementById('email') as HTMLInputElement;
+    const passwordInput = document.getElementById(
+      'password'
+    ) as HTMLInputElement;
+    const cpasswordInput = document.getElementById(
+      'cpassword'
+    ) as HTMLInputElement;
+
+    nameInput.value = '';
+    emailInput.value = '';
+    passwordInput.value = '';
+    cpasswordInput.value = '';
+  };
 
   const toggleShowingPassword = () => {
     const passwordInput = document.getElementById(
@@ -50,6 +70,38 @@ const Register = () => {
       });
       return;
     }
+
+    if (password.length < 6) {
+      toast.error('Password must be at least 6 characters long', {
+        position: 'top-right',
+        duration: 1500,
+        icon: '❌',
+      });
+      return;
+    }
+
+    // check if password contains at least one number and one uppercase letter
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])/;
+    if (!passwordRegex.test(password)) {
+      toast.error(
+        'Password must contain at least one number and one uppercase letter',
+        {
+          position: 'top-right',
+          duration: 1500,
+          icon: '❌',
+        }
+      );
+      return;
+    }
+
+    const dataToBeSent = {
+      name,
+      email,
+      password,
+    };
+
+    console.log(dataToBeSent);
+    resetForm();
   };
 
   return (
@@ -87,9 +139,13 @@ const Register = () => {
                 id="name"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 focus:outline-none"
                 placeholder="e.g. Babul Akter"
-                {...register('name')}
-                required
+                {...register('name', { required: true })}
               />
+              {errors.name && (
+                <span className="text-red-500 text-xs mt-1">
+                  Name is required
+                </span>
+              )}
             </div>
             <div>
               <label
@@ -103,9 +159,13 @@ const Register = () => {
                 id="email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 focus:outline-none"
                 placeholder="name@company.com"
-                {...register('email')}
-                required
+                {...register('email', { required: true })}
               />
+              {errors.email && (
+                <span className="text-red-500 text-xs mt-1">
+                  Email is required
+                </span>
+              )}
             </div>
             <div className="relative">
               <label
@@ -119,9 +179,13 @@ const Register = () => {
                 id="password"
                 placeholder="••••••••"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 focus:outline-none"
-                {...register('password')}
-                required
+                {...register('password', { required: true })}
               />
+              {errors.password && (
+                <span className="text-red-500 text-xs mt-1">
+                  Password is required
+                </span>
+              )}
               <span
                 className="absolute cursor-pointer top-10 right-3"
                 onClick={toggleShowingPassword}
@@ -141,9 +205,13 @@ const Register = () => {
                 id="cpassword"
                 placeholder="••••••••"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 focus:outline-none"
-                {...register('cpassword')}
-                required
+                {...register('cpassword', { required: true })}
               />
+              {errors.cpassword && (
+                <span className="text-red-500 text-xs mt-1">
+                  Confirm Password is required
+                </span>
+              )}
               <span
                 className="absolute cursor-pointer top-10 right-3"
                 onClick={toggleShowingCPassword}
