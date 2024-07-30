@@ -111,9 +111,9 @@ const Register = () => {
   return (
     <div className="main-container flex justify-center items-center min-h-screen">
       <div
-        className="shadow-lg pb-8 w-full md:w-10/12 lg:w-6/12 rounded-md"
-        // data-aos="zoom-in"
-        // data-aos-duration="1500"
+        className="shadow-lg dark:shadow-slate-800 pb-8 w-full md:w-10/12 lg:w-6/12 rounded-md"
+        data-aos="zoom-in"
+        data-aos-duration="1500"
       >
         <div className="shadow py-3 flex justify-between items-center">
           <h3 className="text-custom-black text-xl font-bold ml-8">
@@ -136,10 +136,7 @@ const Register = () => {
             onSubmit={handleSubmit(handleSignup)}
           >
             <div>
-              <label
-                htmlFor="name"
-                className="block mb-2 text-sm font-medium text-gray-900"
-              >
+              <label htmlFor="name" className="block mb-2 text-sm font-medium">
                 Name
               </label>
               <input
@@ -156,10 +153,7 @@ const Register = () => {
               )}
             </div>
             <div>
-              <label
-                htmlFor="email"
-                className="block mb-2 text-sm font-medium text-gray-900"
-              >
+              <label htmlFor="email" className="block mb-2 text-sm font-medium">
                 Email
               </label>
               <input
