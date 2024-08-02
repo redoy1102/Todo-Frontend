@@ -7,8 +7,10 @@ import {
   SheetContent,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { logoutUser } from '@/services/actions/logoutUser';
 import { isLoggedIn } from '@/services/auth.service';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { HiOutlineMenu } from 'react-icons/hi';
 
 const menuItems = [
@@ -19,6 +21,11 @@ const menuItems = [
 
 const Navbar = () => {
   const isUserLoggedin = isLoggedIn();
+  const router = useRouter();
+
+  const handleLogOut = () => {
+    logoutUser(router);
+  };
 
   return (
     <nav className="fixed w-full z-50 top-0">
@@ -48,6 +55,14 @@ const Navbar = () => {
                   </button>
                 </Link>
               )}
+              {isUserLoggedin && (
+                <button
+                  className="btn-primary md:ml-12 lg:ml-16"
+                  onClick={() => handleLogOut()}
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </div>
 
@@ -74,6 +89,14 @@ const Navbar = () => {
                   <Link href="/login" className="">
                     <button className="btn-primary">Login</button>
                   </Link>
+                )}
+                {isUserLoggedin && (
+                  <button
+                    className="btn-primary md:ml-12 lg:ml-16"
+                    onClick={() => handleLogOut()}
+                  >
+                    Logout
+                  </button>
                 )}
               </div>
             </SheetContent>
