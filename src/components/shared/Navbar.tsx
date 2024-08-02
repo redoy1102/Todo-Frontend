@@ -56,12 +56,14 @@ const Navbar = () => {
                 </Link>
               )}
               {isUserLoggedin && (
-                <button
-                  className="btn-primary md:ml-12 lg:ml-16"
-                  onClick={() => handleLogOut()}
-                >
-                  Logout
-                </button>
+                <Link href="/" className="">
+                  <button
+                    className="btn-primary md:ml-12 lg:ml-16"
+                    onClick={() => handleLogOut()}
+                  >
+                    Logout
+                  </button>
+                </Link>
               )}
             </div>
           </div>
@@ -91,12 +93,14 @@ const Navbar = () => {
                   </Link>
                 )}
                 {isUserLoggedin && (
-                  <button
-                    className="btn-primary md:ml-12 lg:ml-16"
-                    onClick={() => handleLogOut()}
-                  >
-                    Logout
-                  </button>
+                  <Link href="/" className="">
+                    <button
+                      className="btn-primary md:ml-12 lg:ml-16"
+                      onClick={() => handleLogOut()}
+                    >
+                      Logout
+                    </button>
+                  </Link>
                 )}
               </div>
             </SheetContent>
