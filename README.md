@@ -4,7 +4,7 @@
 
 - Organized folder structure
 - eslint and prettier setup
-- NextAuth setup
+- custom authentication setup
 - google font setup
 - custom tailwind css setup
 - nextjs config custom setup for better performance
@@ -14,7 +14,6 @@
 - Next.js
 - Tailwind CSS with shadcn
 - TypeScript
-- NextAuth
 
 ## How to run
 

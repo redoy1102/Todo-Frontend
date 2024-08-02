@@ -35,3 +35,18 @@ export interface IErrorResponse {
   errorMessages?: IGenericErrorMsg[];
   statusCode: number;
 }
+
+export interface IUserData {
+  name: string;
+  email: string;
+  password: string;
+  role: 'admin' | 'user';
+}
+
+export interface IRegisterData {
+  name: string;
+  email: string;
+  password: string;
+  role: 'admin' | 'user';
+  profileImage: string;
+}

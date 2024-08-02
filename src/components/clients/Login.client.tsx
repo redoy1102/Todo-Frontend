@@ -1,5 +1,7 @@
 'use client';
 
+import loginUser from '@/services/actions/loginUser';
+import { storeToken } from '@/services/auth.service';
 import { LoginFormSchema } from '@/types/Forms.types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
@@ -12,6 +14,8 @@ import { toast } from 'sonner';
 
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
@@ -43,7 +47,7 @@ const Login = () => {
     }
   };
 
-  const handleLogin = (loginData: FieldValues) => {
+  const handleLogin = async (loginData: FieldValues) => {
     const { email, password } = loginData;
 
     // check if email is valid
@@ -80,8 +84,36 @@ const Login = () => {
       return;
     }
 
-    console.log(loginData);
-    resetForm();
+    try {
+      setIsLoading(true);
+      const data = await loginUser(loginData);
+      if (data.data?.accessToken) {
+        storeToken(data.data?.accessToken);
+        toast.success('Logged in successfully', {
+          position: 'top-right',
+          duration: 1500,
+          icon: '🚀',
+        });
+        resetForm();
+        setIsLoading(false);
+      }
+
+      if (!data.data?.accessToken) {
+        setIsLoading(false);
+        toast.error(data.message, {
+          position: 'top-right',
+          duration: 1500,
+          icon: '❌',
+        });
+      }
+    } catch (error) {
+      setIsLoading(false);
+      toast.error('Login failed', {
+        position: 'top-right',
+        duration: 1500,
+        icon: '❌',
+      });
+    }
   };
 
   return (
@@ -151,7 +183,11 @@ const Login = () => {
                 className="absolute cursor-pointer top-10 right-3"
                 onClick={toggleShowingPassword}
               >
-                {isPasswordVisible ? <IoEyeOutline /> : <IoEyeOffOutline />}
+                {isPasswordVisible ? (
+                  <IoEyeOutline className="dark:text-gray-600" />
+                ) : (
+                  <IoEyeOffOutline className="dark:text-gray-600" />
+                )}
               </span>
             </div>
             <button
@@ -159,7 +195,7 @@ const Login = () => {
               className="btn-secondary w-full flex justify-center space-x-4 items-center"
             >
               <FaSignInAlt />
-              <span>Sign In</span>
+              <span>{isLoading ? 'Signing In...' : 'Sign In'}</span>
             </button>
           </form>
 

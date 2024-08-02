@@ -1,18 +1,8 @@
-interface IUserData {
-  name: {
-    firstName: string;
-    lastName: string;
-  };
-  email: string;
-  address: string;
-  contactNo: string;
-  password: string;
-  role: string;
-}
+import { IUserData } from '@/types/common.types';
 
 const registerUser = async (data: IUserData) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/users/create-user`,
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/register`,
     {
       method: 'POST',
       headers: {

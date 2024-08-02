@@ -1,10 +1,10 @@
 'use client';
 
+import { logoutUser } from '@/services/actions/logoutUser';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
-import { toast } from 'sonner';
 
 export default function DashboardLayout({
   children,
@@ -17,6 +17,8 @@ export default function DashboardLayout({
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
+  const router = useRouter();
 
   return (
     <div>
@@ -70,7 +72,7 @@ export default function DashboardLayout({
           </Link>
           <div className="flex justify-end items-center mb-5 sm:hidden">
             <button
-              className="text-xl text-orange hover:text-orange-400 hover:transition-all duration-300 ease-in-out dark:text-primary"
+              className="text-xl text-orange hover:text-primary hover:transition-all duration-300 ease-in-out dark:text-primary"
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             >
               <RxCross2 />
@@ -79,7 +81,7 @@ export default function DashboardLayout({
           <ul className="font-medium lg:mt-12">
             <Link
               href={`/dashboard/profile`}
-              className="lg:hidden flex items-center space-x-2 mb-4 hover:text-orange-400 md:hover:text-white transition-all duration-300 ease-in-out rounded-md py-2.5 px-3 md:mt-6"
+              className="lg:hidden flex items-center space-x-2 mb-4 hover:text-primary dark:hover:text-primary transition-all duration-300 ease-in-out rounded-md py-2.5 px-3 md:mt-6"
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             >
               <li
@@ -96,7 +98,7 @@ export default function DashboardLayout({
             <li className="my-2">
               <Link
                 href="/dashboard/products"
-                className={`flex items-center p-2 rounded-lg hover:text-primary hover:text-white group hover:transition-all duration-300 ease-in-out ${
+                className={`flex items-center p-2 rounded-lg hover:text-primary dark:hover:text-primary group hover:transition-all duration-300 ease-in-out ${
                   pathname === '/dashboard/products'
                     ? 'text-primary dark:text-primary'
                     : 'dark:text-dim'
@@ -113,7 +115,7 @@ export default function DashboardLayout({
             <li className="my-2">
               <Link
                 href="/dashboard/sells"
-                className={`flex items-center p-2 rounded-lg hover:text-primary hover:text-white group hover:transition-all duration-300 ease-in-out ${
+                className={`flex items-center p-2 rounded-lg hover:text-primary dark:hover:text-primary group hover:transition-all duration-300 ease-in-out ${
                   pathname === '/dashboard/sells'
                     ? 'text-primary dark:text-primary'
                     : 'dark:text-dim'
@@ -132,35 +134,30 @@ export default function DashboardLayout({
               <li>
                 <Link
                   href="/"
-                  className="cursor-pointer ms-5 text-offgray hover:text-orange-400 hover:transition-all duration-300 ease-in-out"
+                  className="cursor-pointer ms-5 text-offgray hover:text-primary group hover:transition-all duration-300 ease-in-out dark:hover:text-orange-400"
                 >
                   <div
                     className="flex items-center space-x-2"
                     onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                   >
-                    <span className="dark:text-dim">Back To Home</span>
+                    <span className="dark:text-dim hover:transition-all duration-300 ease-in-out dark:hover:text-orange-400">
+                      Back To Home
+                    </span>
                   </div>
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/login"
-                  className="cursor-pointer ms-5 text-offgray hover:text-orange-400 hover:transition-all duration-300 ease-in-out"
-                  onClick={() =>
-                    toast.success('Logged out successfully', {
-                      duration: 1500,
-                      position: 'top-right',
-                      icon: '👋',
-                    })
-                  }
+              <li className="cursor-pointer mt-4 text-offgray hover:text-primary dark:hover:text-primary group hover:transition-all duration-300 ease-in-out">
+                <div
+                  className="flex items-center space-x-2"
+                  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                 >
-                  <div
-                    className="flex items-center space-x-2"
-                    onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                  <button
+                    className="dark:text-dim hover:transition-all duration-300 ease-in-out dark:hover:text-orange-400"
+                    onClick={() => logoutUser(router)}
                   >
-                    <span className="dark:text-dim">Logout</span>
-                  </div>
-                </Link>
+                    Logout
+                  </button>
+                </div>
               </li>
             </div>
           </ul>

@@ -1,8 +1,13 @@
 'use client';
 
+import loginUser from '@/services/actions/loginUser';
+import registerUser from '@/services/actions/registerUser';
+import { storeToken } from '@/services/auth.service';
+import { IRegisterData } from '@/types/common.types';
 import { RegisterFormSchema } from '@/types/Forms.types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { FaSignInAlt } from 'react-icons/fa';
@@ -13,6 +18,8 @@ import { toast } from 'sonner';
 const Register = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const [isCPasswordVisible, setIsCPasswordVisible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
@@ -20,6 +27,8 @@ const Register = () => {
   } = useForm({
     resolver: zodResolver(RegisterFormSchema),
   });
+
+  const router = useRouter();
 
   const resetForm = () => {
     const nameInput = document.getElementById('name') as HTMLInputElement;
@@ -63,7 +72,7 @@ const Register = () => {
     }
   };
 
-  const handleSignup = (signupData: FieldValues) => {
+  const handleSignup = async (signupData: FieldValues) => {
     const { name, email, password, cpassword } = signupData;
 
     if (password !== cpassword) {
@@ -98,14 +107,65 @@ const Register = () => {
       return;
     }
 
-    const dataToBeSent = {
+    const dataToBeSent: IRegisterData = {
       name,
       email,
       password,
+      role: 'user',
+      profileImage: '',
     };
 
-    console.log(dataToBeSent);
-    resetForm();
+    try {
+      setIsLoading(true);
+
+      const data = await registerUser(dataToBeSent);
+
+      if (data?.statusCode === 201 && data?.data?._id) {
+        toast.success('Account created successfully', {
+          position: 'top-right',
+          duration: 1500,
+          icon: '🚀',
+        });
+        resetForm();
+
+        const loginData = await loginUser({
+          email: dataToBeSent.email,
+          password: dataToBeSent.password,
+        });
+
+        if (loginData.data?.accessToken) {
+          storeToken(loginData.data?.accessToken);
+          setIsLoading(false);
+        }
+
+        if (!loginData.data?.accessToken) {
+          toast.error(
+            'Account created successfully but failed to login. Please try again from the login page.',
+            {
+              position: 'top-right',
+              duration: 1500,
+              icon: '❌',
+            }
+          );
+          setIsLoading(false);
+          router.push('/login');
+        }
+      } else if (data?.statusCode !== 201) {
+        toast.error(data?.message, {
+          position: 'top-right',
+          duration: 1500,
+          icon: '❌',
+        });
+        setIsLoading(false);
+      }
+    } catch (error) {
+      toast.error('Failed to create account', {
+        position: 'top-right',
+        duration: 1500,
+        icon: '❌',
+      });
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -192,7 +252,11 @@ const Register = () => {
                 className="absolute cursor-pointer top-10 right-3"
                 onClick={toggleShowingPassword}
               >
-                {isPasswordVisible ? <IoEyeOutline /> : <IoEyeOffOutline />}
+                {isPasswordVisible ? (
+                  <IoEyeOutline className="dark:text-gray-600" />
+                ) : (
+                  <IoEyeOffOutline className="dark:text-gray-600" />
+                )}
               </span>
             </div>
             <div className="relative">
@@ -218,7 +282,11 @@ const Register = () => {
                 className="absolute cursor-pointer top-10 right-3"
                 onClick={toggleShowingCPassword}
               >
-                {isCPasswordVisible ? <IoEyeOutline /> : <IoEyeOffOutline />}
+                {isCPasswordVisible ? (
+                  <IoEyeOutline className="dark:text-gray-600" />
+                ) : (
+                  <IoEyeOffOutline className="dark:text-gray-600" />
+                )}
               </span>
             </div>
             <button
@@ -226,7 +294,7 @@ const Register = () => {
               className="btn-secondary w-full flex justify-center space-x-4 items-center"
             >
               <FaSignInAlt />
-              <span>Sign Up</span>
+              <span> {isLoading ? 'Signing Up...' : 'Sign Up'} </span>
             </button>
           </form>
 

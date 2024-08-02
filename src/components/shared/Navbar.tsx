@@ -7,17 +7,19 @@ import {
   SheetContent,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { isLoggedIn } from '@/services/auth.service';
 import Link from 'next/link';
 import { HiOutlineMenu } from 'react-icons/hi';
 
 const menuItems = [
   { name: 'About', path: '/about', current: false },
   { name: 'Contact', path: '/contact', current: false },
-  { name: 'LogIn', path: '/login', current: false },
   { name: 'Dashboard', path: '/dashboard', current: false },
 ];
 
 const Navbar = () => {
+  const isUserLoggedin = isLoggedIn();
+
   return (
     <nav className="fixed w-full z-50 top-0">
       <div className="main-container">
@@ -39,6 +41,13 @@ const Navbar = () => {
                   </button>
                 </Link>
               ))}
+              {!isUserLoggedin && (
+                <Link href="/login" className="">
+                  <button className="btn-primary md:ml-12 lg:ml-16">
+                    Login
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
 
@@ -61,6 +70,11 @@ const Navbar = () => {
                     </Link>
                   </SheetClose>
                 ))}
+                {!isUserLoggedin && (
+                  <Link href="/login" className="">
+                    <button className="btn-primary">Login</button>
+                  </Link>
+                )}
               </div>
             </SheetContent>
           </Sheet>
