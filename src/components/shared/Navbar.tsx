@@ -61,14 +61,12 @@ const Navbar = () => {
                   </button>
                 </Link>
               ) : (
-                <Link href="/">
-                  <button
-                    className="btn-primary md:ml-12 lg:ml-16 w-20"
-                    onClick={handleLogOut}
-                  >
-                    Logout
-                  </button>
-                </Link>
+                <button
+                  className="btn-primary md:ml-12 lg:ml-16 w-20"
+                  onClick={handleLogOut}
+                >
+                  Logout
+                </button>
               )}
             </div>
           </div>
@@ -99,14 +97,12 @@ const Navbar = () => {
                     </button>
                   </Link>
                 ) : (
-                  <Link href="/" className="">
-                    <button
-                      className="btn-primary md:ml-12 lg:ml-16"
-                      onClick={handleLogOut}
-                    >
-                      Logout
-                    </button>
-                  </Link>
+                  <button
+                    className="btn-primary md:ml-12 lg:ml-16"
+                    onClick={handleLogOut}
+                  >
+                    Logout
+                  </button>
                 )}
               </div>
             </SheetContent>
