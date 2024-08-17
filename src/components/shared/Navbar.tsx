@@ -24,9 +24,12 @@ const Navbar = () => {
   const [isloggedIn, setIsLoggedin] = useState<boolean>(false);
   const router = useRouter();
 
-  const handleLogOut = () => {
-    logoutUser(router);
+  const handleLogOut = async () => {
+    await logoutUser(router);
     setIsLoggedin(false);
+    setTimeout(() => {
+      router.push('/login');
+    }, 500);
   };
 
   useEffect(() => {
