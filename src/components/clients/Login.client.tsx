@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { FaSignInAlt } from 'react-icons/fa';
+import { FaDatabase } from 'react-icons/fa6';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 import { toast } from 'sonner';
@@ -19,10 +20,16 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    setValue, // Added for setting form values
     formState: { errors },
   } = useForm({
     resolver: zodResolver(LoginFormSchema),
   });
+
+  const handleDemoSignIn = () => {
+    setValue('email', 'babulakterfsd@gmail.com');
+    setValue('password', 'Babul123');
+  };
 
   const resetForm = () => {
     const emailInput = document.getElementById('email') as HTMLInputElement;
@@ -198,6 +205,23 @@ const Login = () => {
               <span>{isLoading ? 'Signing In...' : 'Sign In'}</span>
             </button>
           </form>
+
+          {/* other parts */}
+          <div className="flex items-center justify-between mt-5">
+            <div className="h-[.5px] w-3/5 mb-6 bg-orange"></div>
+            <span className="-mt-6 mx-3 text-offgray">or</span>
+            <div className="h-[.5px] w-3/5 mb-6 bg-orange"></div>
+          </div>
+          {/* demo account data button */}
+          <div
+            className="w-full py-2 border border-purple-400 flex justify-center space-x-4 items-center hover:cursor-pointer hover:bg-purple-400 text-offgray hover:text-white rounded"
+            onClick={handleDemoSignIn}
+          >
+            <span className="text-sm">
+              <FaDatabase />
+            </span>
+            <span className="ml-2 text-sm">Login With Demo Account</span>
+          </div>
 
           {/* not registered */}
           <div className="flex items-center justify-between mt-12">
