@@ -26,6 +26,7 @@ const Navbar = () => {
 
   const handleLogOut = () => {
     logoutUser(router);
+    setIsLoggedin(false);
   };
 
   useEffect(() => {
