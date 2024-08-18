@@ -3,6 +3,7 @@
 import { authKey } from '@/constant/authKey';
 import { getFromLocalStorage, setToLocalStorage } from '@/lib/localStorage';
 import axios from 'axios';
+import { toast } from 'sonner';
 import { setAccessToken } from '../services/actions/setAccessToken';
 import { getNewAccessToken } from '../services/auth.service';
 import { IErrorResponse, ISuccessResponse } from '../types/common.types';
@@ -56,7 +57,11 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(config);
       }
 
-      alert('Session expired. Please login again.');
+      toast.error('Session expired. Please login again.', {
+        position: 'top-right',
+        duration: 1500,
+        icon: '❌',
+      });
     } else {
       const responseObj: IErrorResponse = {
         success: error?.response?.data?.success || false,
@@ -66,7 +71,14 @@ axiosInstance.interceptors.response.use(
         ],
         statusCode: error?.response?.status || 500,
       };
-      alert(responseObj.errorMessages?.[0]?.message || responseObj.message);
+      toast.error(
+        responseObj.errorMessages?.[0]?.message || responseObj.message,
+        {
+          position: 'top-right',
+          duration: 1500,
+          icon: '❌',
+        }
+      );
       return responseObj;
     }
   }
