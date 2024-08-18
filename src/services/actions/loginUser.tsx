@@ -20,7 +20,7 @@ const loginUser = async (data: FieldValues) => {
 
   if (result?.data?.accessToken) {
     setAccessToken(result?.data?.accessToken, {
-      redirect: '/',
+      redirect: '/dashboard',
     });
   }
 

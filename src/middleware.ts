@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { jwtDecode } from 'jwt-decode';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -46,8 +47,6 @@ export function middleware(request: NextRequest) {
   }
 
   const { email, role } = decodedData as CustomJwtPayload;
-
-  console.log('hitting after log out from dashboard', email, role);
 
   //check user is loggedin and and access dashboard routes
   if (accessToken && privateRoute.includes(pathname)) {
