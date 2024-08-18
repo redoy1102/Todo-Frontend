@@ -1,17 +1,24 @@
 const Profile = async () => {
-  const data = await fetch(
-    'https://nextjs-rnd-backend.vercel.app/api/auth/get-profile',
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    }
-  );
-  const response = await data.json();
+  let realData = null;
 
-  console.log(response);
+  if (window !== undefined) {
+    const data = await fetch(
+      'https://nextjs-rnd-backend.vercel.app/api/auth/get-profile',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }
+    );
+    const response = await data.json();
+    realData = response;
+
+    console.log({ response });
+  }
+
+  console.log({ realData });
 
   return (
     <div>
