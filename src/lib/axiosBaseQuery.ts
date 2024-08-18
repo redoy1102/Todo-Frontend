@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { authKey } from '@/constant/authKey';
 import type { BaseQueryFn } from '@reduxjs/toolkit/query';
 import type { AxiosError, AxiosRequestConfig } from 'axios';
