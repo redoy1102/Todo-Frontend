@@ -1,7 +1,7 @@
 const Profile = async () => {
   let realData = null;
 
-  if (window !== undefined) {
+  if (typeof window === 'undefined') {
     const data = await fetch(
       'https://nextjs-rnd-backend.vercel.app/api/auth/get-profile',
       {
