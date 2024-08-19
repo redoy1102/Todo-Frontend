@@ -20,6 +20,13 @@ export default function DashboardLayout({
 
   const router = useRouter();
 
+  const handleLogout = async () => {
+    await logoutUser(router);
+    setTimeout(() => {
+      router.push('/login');
+    }, 500);
+  };
+
   return (
     <div>
       <button
@@ -153,7 +160,7 @@ export default function DashboardLayout({
                 >
                   <button
                     className="dark:text-dim hover:transition-all duration-300 ease-in-out dark:hover:text-orange-400"
-                    onClick={() => logoutUser(router)}
+                    onClick={() => handleLogout()}
                   >
                     Logout
                   </button>

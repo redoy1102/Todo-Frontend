@@ -10,7 +10,6 @@ export const logoutUser = async (router: AppRouterInstance) => {
   removeUser();
   deleteCookies([authKey, refreshKey]);
   router.refresh();
-  router.push('/login');
   toast('Logged out successfully', {
     position: 'top-right',
     duration: 1500,
