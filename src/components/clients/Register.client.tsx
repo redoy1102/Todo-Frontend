@@ -1,7 +1,6 @@
 'use client';
-
-import loginUser from '@/services/actions/loginUser';
-import registerUser from '@/services/actions/registerUser';
+import { useLoginMutation, useSignupMutation } from '@/redux/api/userApi';
+import { setAccessToken } from '@/services/actions/setAccessToken';
 import { storeToken } from '@/services/auth.service';
 import { IRegisterData } from '@/types/common.types';
 import { RegisterFormSchema } from '@/types/Forms.types';
@@ -19,6 +18,9 @@ const Register = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const [isCPasswordVisible, setIsCPasswordVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [signup, { isSuccess }] = useSignupMutation();
+  const [login] = useLoginMutation();
 
   const {
     register,
@@ -118,27 +120,28 @@ const Register = () => {
     try {
       setIsLoading(true);
 
-      const data = await registerUser(dataToBeSent);
+      const response = await signup(dataToBeSent).unwrap();
 
-      if (data?.statusCode === 201 && data?.data?._id) {
-        toast.success('Account created successfully', {
-          position: 'top-right',
-          duration: 1500,
-          icon: '🚀',
-        });
-        resetForm();
+      if (response?.statusCode === 201 && response?.data?._id) {
+        const loginResponse = await login({
+          email: signupData?.email,
+          password: signupData?.password,
+        }).unwrap();
 
-        const loginData = await loginUser({
-          email: dataToBeSent.email,
-          password: dataToBeSent.password,
-        });
-
-        if (loginData.data?.accessToken) {
-          storeToken(loginData.data?.accessToken);
-          setIsLoading(false);
+        if (loginResponse.data?.accessToken) {
+          storeToken(loginResponse.data?.accessToken);
+          setAccessToken(loginResponse?.data?.accessToken, {
+            redirect: '/dashboard',
+          });
+          toast.success('Account created successfully', {
+            position: 'top-right',
+            duration: 1500,
+            icon: '🚀',
+          });
+          resetForm();
         }
 
-        if (!loginData.data?.accessToken) {
+        if (response?.statusCode === 201 && !loginResponse.data?.accessToken) {
           toast.error(
             'Account created successfully but failed to login. Please try again from the login page.',
             {
@@ -147,24 +150,24 @@ const Register = () => {
               icon: '❌',
             }
           );
-          setIsLoading(false);
+
           router.push('/login');
         }
-      } else if (data?.statusCode !== 201) {
-        toast.error(data?.message, {
+      } else if (response?.statusCode !== 201) {
+        setIsLoading(false);
+        toast.error(response?.message, {
           position: 'top-right',
           duration: 1500,
           icon: '❌',
         });
-        setIsLoading(false);
       }
     } catch (error) {
+      setIsLoading(false);
       toast.error('Failed to create account', {
         position: 'top-right',
         duration: 1500,
         icon: '❌',
       });
-      setIsLoading(false);
     }
   };
 

@@ -1,6 +1,7 @@
 'use client';
 
-import loginUser from '@/services/actions/loginUser';
+import { useLoginMutation } from '@/redux/api/userApi';
+import { setAccessToken } from '@/services/actions/setAccessToken';
 import { storeToken } from '@/services/auth.service';
 import { LoginFormSchema } from '@/types/Forms.types';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,7 +16,8 @@ import { toast } from 'sonner';
 
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [login, { isLoading }] = useLoginMutation();
 
   const {
     register,
@@ -92,29 +94,29 @@ const Login = () => {
     }
 
     try {
-      setIsLoading(true);
-      const data = await loginUser(loginData);
-      if (data.data?.accessToken) {
-        storeToken(data.data?.accessToken);
+      const response = await login(loginData).unwrap();
+
+      if (response.data?.accessToken) {
+        storeToken(response.data?.accessToken);
+        setAccessToken(response?.data?.accessToken, {
+          redirect: '/dashboard',
+        });
         toast.success('Logged in successfully', {
           position: 'top-right',
           duration: 1500,
           icon: '🚀',
         });
         resetForm();
-        setIsLoading(false);
       }
 
-      if (!data.data?.accessToken) {
-        setIsLoading(false);
-        toast.error(data.message, {
+      if (!response.data?.accessToken) {
+        toast.error(response.message, {
           position: 'top-right',
           duration: 1500,
           icon: '❌',
         });
       }
     } catch (error) {
-      setIsLoading(false);
       toast.error('Login failed', {
         position: 'top-right',
         duration: 1500,

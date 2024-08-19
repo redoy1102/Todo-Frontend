@@ -7,7 +7,7 @@ const productApi = baseApi.injectEndpoints({
         return {
           url: '/products',
           method: 'POST',
-          body: productData,
+          data: productData,
         };
       },
       invalidatesTags: ['products'],

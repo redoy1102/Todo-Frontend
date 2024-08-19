@@ -1,21 +1,23 @@
-import { IUserData } from '@/types/common.types';
+/* ei system ta hocche manually signup korar, ei function ke call kore. ami eta use na kore rtk query diye kortesi */
 
-const registerUser = async (data: IUserData) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/register`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-      cache: 'no-store',
-    }
-  );
+// import { IUserData } from '@/types/common.types';
 
-  const result = await response.json();
+// const registerUser = async (data: IUserData) => {
+//   const response = await fetch(
+//     `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/register`,
+//     {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(data),
+//       cache: 'no-store',
+//     }
+//   );
 
-  return result;
-};
+//   const result = await response.json();
 
-export default registerUser;
+//   return result;
+// };
+
+// export default registerUser;
