@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 'use client';
 
 import { authKey } from '@/constant/authKey';
@@ -21,7 +22,7 @@ axiosInstance.interceptors.request.use(
     // Do something before request is sent
     const accessToken = getFromLocalStorage(authKey);
     if (accessToken) {
-      config.headers.Authorization = accessToken;
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -36,7 +37,6 @@ axiosInstance.interceptors.response.use(
   function (response) {
     const responseObj: ISuccessResponse = {
       data: response?.data?.data,
-      meta: response?.data?.meta,
       message: response?.data?.message,
       success: response?.data?.success,
       statusCode: response?.status,
