@@ -2,31 +2,34 @@ import { authKey } from '@/constant/authKey';
 import { decodeToken } from '@/lib/JWTokenDecoder';
 import { getCookie } from 'cookies-next';
 import { axiosInstance } from '../lib/axiosInstance';
-import {
-  getFromLocalStorage,
-  removeFromLocalStorage,
-  setToLocalStorage,
-} from '../lib/localStorage';
-import { CustomJwtPayload } from '../types/common.types';
+import { removeFromLocalStorage, setToLocalStorage } from '../lib/localStorage';
 
 export const storeToken = (accessToken: string) => {
   setToLocalStorage(authKey, accessToken);
 };
 
 export const getUserInfoFromToken = () => {
-  const authToken = getFromLocalStorage(authKey);
-  if (authToken) {
-    const decodedData = decodeToken(authToken) as CustomJwtPayload;
-
-    return decodedData;
+  const accessTokenFromCookie = getCookie(authKey);
+  if (accessTokenFromCookie === undefined) {
+    return null;
   }
+  let currentUser = null;
+
+  try {
+    const decodedUser = decodeToken(accessTokenFromCookie);
+    currentUser = decodedUser;
+  } catch (error) {
+    currentUser = null;
+  }
+  return currentUser;
 };
 
-export const isLoggedIn = () => {
-  const accessTokenFromLocalStorage = getFromLocalStorage(authKey);
+export const isloggedIn = () => {
   const accessTokenFromCookie = getCookie(authKey);
-
-  return !!(accessTokenFromLocalStorage && accessTokenFromCookie);
+  if (accessTokenFromCookie !== undefined) {
+    return true;
+  }
+  return false;
 };
 
 export const removeUser = () => {

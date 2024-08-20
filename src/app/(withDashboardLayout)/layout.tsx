@@ -1,5 +1,6 @@
 'use client';
 
+import { currentUserInfo } from '@/hooks/useUserStatusCheck';
 import { logoutUser } from '@/services/actions/logoutUser';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -13,6 +14,8 @@ export default function DashboardLayout({
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathname = usePathname();
+
+  const user = currentUserInfo();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -98,7 +101,7 @@ export default function DashboardLayout({
                     : 'dark:text-dim'
                 }`}
               >
-                Babul Akter
+                {user?.name}
               </li>
             </Link>
             <hr className="mt-2 lg:hidden" />
@@ -185,7 +188,7 @@ export default function DashboardLayout({
                   : 'dark:text-dim'
               }`}
             >
-              Babul Akter
+              {user?.name}
             </li>
           </Link>
         </div>

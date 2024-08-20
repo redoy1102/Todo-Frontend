@@ -50,3 +50,13 @@ export interface IRegisterData {
   role: 'admin' | 'user';
   profileImage: string;
 }
+
+export interface ICurrentUser {
+  email: string;
+  role: string;
+  name: string;
+  profileImage: string;
+  exp: number;
+  iat: number;
+  _id: string;
+}

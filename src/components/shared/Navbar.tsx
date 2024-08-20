@@ -7,8 +7,8 @@ import {
   SheetContent,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { isLoggedIn } from '@/hooks/useUserStatusCheck';
 import { logoutUser } from '@/services/actions/logoutUser';
-import { isLoggedIn } from '@/services/auth.service';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
