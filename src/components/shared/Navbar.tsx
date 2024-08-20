@@ -48,30 +48,24 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:block">
-            <div className="flex items-center space-x-4">
-              {menuItems.map((item) => (
-                <Link href={item.path} key={item.name}>
-                  <button className="hover:text-orange-400 transition-all duration-300 ease-in-out">
-                    {item.name}
-                  </button>
-                </Link>
-              ))}
-              {isloggedIn === false ? (
-                <Link href="/login">
-                  <button className="btn-primary md:ml-12 lg:ml-16 w-20">
-                    Login
-                  </button>
-                </Link>
-              ) : (
-                <button
-                  className="btn-primary md:ml-12 lg:ml-16 w-20"
-                  onClick={handleLogOut}
-                >
-                  Logout
+          <div className="hidden md:flex items-center space-x-4">
+            {menuItems.map((item) => (
+              <Link href={item.path} key={item.name}>
+                <button className="hover:text-orange-400 transition-all duration-300 ease-in-out">
+                  {item.name}
                 </button>
-              )}
-            </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Login/Logout Button */}
+          <div className="hidden md:flex items-center">
+            <button
+              className="btn-primary md:ml-12 lg:ml-16 w-20"
+              onClick={isloggedIn ? handleLogOut : () => router.push('/login')}
+            >
+              {isloggedIn ? 'Logout' : 'Login'}
+            </button>
           </div>
 
           {/* Mobile Menu (Drawer) */}
@@ -93,20 +87,14 @@ const Navbar = () => {
                     </Link>
                   </SheetClose>
                 ))}
-                {isloggedIn === false ? (
-                  <Link href="/login" className="">
-                    <button className="btn-primary md:ml-12 lg:ml-16">
-                      Login
-                    </button>
-                  </Link>
-                ) : (
-                  <button
-                    className="btn-primary md:ml-12 lg:ml-16"
-                    onClick={handleLogOut}
-                  >
-                    Logout
-                  </button>
-                )}
+                <button
+                  className="btn-primary md:ml-12 lg:ml-16"
+                  onClick={
+                    isloggedIn ? handleLogOut : () => router.push('/login')
+                  }
+                >
+                  {isloggedIn ? 'Logout' : 'Login'}
+                </button>
               </div>
             </SheetContent>
           </Sheet>
