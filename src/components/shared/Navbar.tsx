@@ -18,6 +18,7 @@ const menuItems = [
   { name: 'About', path: '/about', current: false },
   { name: 'Contact', path: '/contact', current: false },
   { name: 'Dashboard', path: '/dashboard', current: false },
+  { name: 'Profile', path: '/profile', current: false },
 ];
 
 const Navbar = () => {
